@@ -41,11 +41,9 @@ class IOutputFormatter(ABC):
 
 
 class GitHubClient(IGitHubClient):
-    def __init__(self, token: Optional[str], current_repo: Optional[str]):
-        self.token = token
+    def __init__(self, current_repo: Optional[str]):
         self.current_repo = current_repo
-        self.headers = {"Authorization": f"token {token}"} if token else {}
-        self.headers["Accept"] = "application/vnd.github.v3+json"
+        self.headers = {"Accept": "application/vnd.github.v3+json"}
 
     def get_latest_release(self, repo_name: str) -> Optional[Dict]:
         url = f"https://api.github.com/repos/{repo_name}/releases/latest"
@@ -143,30 +141,31 @@ class JsonFormatter(IOutputFormatter):
 class MarkdownFormatter(IOutputFormatter):
     def format(self, results: List[Dict]) -> str:
         md_lines = ["# Dependency Release Check", ""]
-        
+
         # Summary table
-        md_lines.extend([
-            "| Package | Current | Latest | Assets |",
-            "|---|---|---|---|"
-        ])
-        
+        md_lines.extend(
+            ["| Package | Current | Latest | Assets |", "|---|---|---|---|"]
+        )
+
         for res in results:
-            asset_count = f"{len(res['Assets'])} found" if res['Assets'] else "None"
+            asset_count = f"{len(res['Assets'])} found" if res["Assets"] else "None"
             status = " 🆕" if res["NewRelease"] else ""
-            md_lines.append(f"| {res['Package']} | {res['Version']} | {res['Latest']}{status} | {asset_count} |")
-        
+            md_lines.append(
+                f"| {res['Package']} | {res['Version']} | {res['Latest']}{status} | {asset_count} |"
+            )
+
         md_lines.append("")
-        
+
         # Detailed sections
         for res in results:
             md_lines.append(f"## {res['Package']}")
-            
+
             if res["Assets"]:
                 md_lines.append("**Assets:**")
                 for asset in res["Assets"]:
                     md_lines.append(f"- [{asset['name']}]({asset['url']})")
                 md_lines.append("")
-            
+
             md_lines.append("**Release Notes:**")
             notes = res.get("ReleaseNotes", "").strip()
             md_lines.append(notes if notes else "None")
@@ -223,7 +222,6 @@ class ReleaseManager:
                 continue
 
             tag_name = release.get("tag_name")
-            html_url = release.get("html_url")
             body = release.get("body", "")
 
             last_version = self.tracker.get_version(repo_name)
@@ -285,6 +283,7 @@ class ReleaseManager:
 
 class Application:
     def __init__(self):
+        self.github = GitHubClient(CURRENT_REPO)
         self.asset_discoverer = AssetDiscoverer(self.github)
         self.tracker = ReleaseTracker(TRACKING_FILE)
         self.release_manager = ReleaseManager(
