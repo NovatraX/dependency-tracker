@@ -30,7 +30,7 @@ jobs:
       - name: Run check script
         run: uv run scripts/check_releases.py
 
-      - name: Commit and push stars.json
+      - name: Commit and push README update
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
