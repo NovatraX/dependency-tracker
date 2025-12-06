@@ -30,8 +30,11 @@ jobs:
       - name: Run check script
         run: uv run scripts/check_releases.py
 
-      - name: Commit and push changes
-        uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-          commit_message: "chore: update tracked versions and readme timestamp"
-          file_pattern: "tracked_versions.json README.md"
+      - name: Commit and push stars.json
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add tracked_versions.json README.md
+          git commit -m "📝 Update timestamps in README [workflow]"
+          git push
