@@ -21,10 +21,14 @@ jobs:
         with:
           enable-cache: true
 
+      - name: Set up Python
+        run: uv python install
+
+      - name: Install the project
+        run: uv sync
+
       - name: Run check script
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: python scripts/check_releases.py
+        run: uv run scripts/check_releases.py
 
       - name: Commit and push changes
         uses: stefanzweifel/git-auto-commit-action@v4
