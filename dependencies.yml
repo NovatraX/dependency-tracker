@@ -1,0 +1,7 @@
+repositories:
+  - name: bigskysoftware/htmx
+  - name: KaTeX/KaTeX
+  - name: khmyznikov/pwa-install
+  - name: sachinchoolur/lightGallery
+  - name: mathjax/MathJax
+  - name: apexcharts/apexcharts.js
