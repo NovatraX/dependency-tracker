@@ -32,7 +32,7 @@ jobs:
         run: python scripts/check_releases.py
 
       - name: Commit and push changes
-        uses: stefanzweifel/git-auto-commit-action@v4
+        uses: stefanzweifel/git-auto-commit-action@v7
         with:
           commit_message: "chore: update tracked versions and readme timestamp"
           file_pattern: "tracked_versions.json README.md"
