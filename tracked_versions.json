@@ -1,8 +1,8 @@
 {
-    "bigskysoftware/htmx": "v4.0.0-beta4",
+    "bigskysoftware/htmx": "v4.0.0-beta5",
     "KaTeX/KaTeX": "v0.17.0",
-    "khmyznikov/pwa-install": "v0.6.2",
+    "khmyznikov/pwa-install": "v0.6.4",
     "sachinchoolur/lightGallery": "2.9.0",
     "mathjax/MathJax": "4.1.2",
-    "apexcharts/apexcharts.js": "v5.15.0"
+    "apexcharts/apexcharts.js": "v5.15.2"
 }
