@@ -3,6 +3,6 @@
     "KaTeX/KaTeX": "v0.17.0",
     "khmyznikov/pwa-install": "v0.6.4",
     "sachinchoolur/lightGallery": "2.9.0",
-    "mathjax/MathJax": "4.1.2",
-    "apexcharts/apexcharts.js": "v5.15.2"
+    "mathjax/MathJax": "4.1.3",
+    "apexcharts/apexcharts.js": "v5.16.0"
 }
